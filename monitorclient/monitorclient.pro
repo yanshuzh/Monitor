@@ -11,13 +11,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = monitorclient
 TEMPLATE = app
 INCLUDEPATH +=/usr/include/SDL
-INCLUDEPATH +=/home/zhuang/ffmpeg/include
+INCLUDEPATH +=/usr/local/ffmpeg/include
 INCLUDEPATH +=/usr/local/2.95.3/jrtplib/include/jrtplib3
 INCLUDEPATH +=/usr/local/2.95.3/jthread/include/jthread
 
 LIBS +=-L/usr/local/2.95.3/jthread/lib -ljthread
 LIBS +=-L/usr/local/2.95.3/jrtplib/lib -ljrtp
-LIBS +=-L/home/zhuang/ffmpeg/lib -lavcodec -lavformat -lavfilter -lswresample -lswscale -lavdevice -lavutil -lSDL
+LIBS +=-L/usr/local/ffmpeg/lib -lavcodec -lavformat -lavfilter -lswresample -lswscale -lavdevice -lavutil -lSDL
 
 SOURCES += main.cpp\
         monitorclient.cpp \

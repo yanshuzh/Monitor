@@ -197,7 +197,7 @@ void *recv_thread(void *arg)
 	status = sess.Create(sessparams,&transparams);	
 	checkerror(status);
 	g_flag=1;
-	while(1);
+	//while(1);
 	while(true)
 	{
 
@@ -227,42 +227,42 @@ void *recv_thread(void *arg)
             			//memcpy(m_pVideoData->m_pBuffer,recv_buffer,m_current_size);
             				memcpy(recv_buffer + m_current_size ,rtppack->GetPayloadData(),rtppack->GetPayloadLength());
             				std::cout << "Got packet the length is :"<< length<< " from SSRC " << std::endl;
-	   				fwrite(recv_buffer,length,1,fp);
+	   						fwrite(recv_buffer,length,1,fp);
 
-	   				pthread_mutex_lock(&rs_pthreadMutex);
-	   				memcpy(recv2out_buffer,recv_buffer,length);
-					g_flag=1;
-	   				pthread_mutex_unlock(&rs_pthreadMutex);
+	   						pthread_mutex_lock(&rs_pthreadMutex);
+	   						memcpy(recv2out_buffer,recv_buffer,length);
+							g_flag=1;
+	   						pthread_mutex_unlock(&rs_pthreadMutex);
 
-	   				if(i_flag==false)
-	   				{
-						int ret=sess.findheader(recv_buffer,length);
+	   						if(i_flag==false)
+	   						{
+								int ret=sess.findheader(recv_buffer,length);
             					if(ret<length)
             					{
                						my_decoder->start_decoder(recv_buffer,length,out_buffer);
                 					i_flag=true;
             					}
-           				}
-	  			 	else
-	   				{
-						my_decoder->start_decoder(recv_buffer,length,out_buffer);
-	   					////fwrite(out_buffer,MY_VIDEO_WIDTH*MY_VIDEO_HEIGHT*3/2,1,fpyuv);
+           					}
+	  			 			else
+	   						{
+							my_decoder->start_decoder(recv_buffer,length,out_buffer);
+	   						////fwrite(out_buffer,MY_VIDEO_WIDTH*MY_VIDEO_HEIGHT*3/2,1,fpyuv);
 	    					my_sdl->SDLshow();
-	   				}
+	   						}
 
-					//m_ReceiveArray.Add(m_pVideoData);//添加到接收队列
+						//m_ReceiveArray.Add(m_pVideoData);//添加到接收队列
             				memset(recv_buffer,0,m_current_size);//清空缓存，为下次做准备
             				m_current_size = 0;
-        			}
-        			else//放入缓冲区，在此必须确保有序
-        			{
+        				}
+        				else//放入缓冲区，在此必须确保有序
+        				{
             				//unsigned char* p = rtppack.GetPayloadData();
             				memcpy(recv_buffer + m_current_size,rtppack->GetPayloadData(),rtppack->GetPayloadLength());
             				m_current_size += rtppack->GetPayloadLength();
-        			}
+        				}
     			}
-			//pthread_mutex_unlock(&rs_pthreadMutex);	
-			sess.DeletePacket(rtppack);
+				//pthread_mutex_unlock(&rs_pthreadMutex);	
+				sess.DeletePacket(rtppack);
 					
 			}
 			} while (sess.GotoNextSourceWithData());

@@ -1,9 +1,9 @@
-INC=-I/usr/include/SDL -I/home/zhuang/ffmpeg/include -I/usr/local/2.95.3/jrtplib/include/jrtplib3 -I/usr/local/2.95.3/jthread/include/jthread -I/usr/include/mysql
-LIB=-L/usr/local/2.95.3/jthread/lib -ljthread -L/usr/local/2.95.3/jrtplib/lib -ljrtp -L/home/zhuang/ffmpeg/lib -lavcodec -lavformat -lavfilter -lswresample -lswscale -lavdevice -lavutil  -lSDL -lmysqlclient -lpthread
+INC=-I/usr/include/SDL -I/usr/local/ffmpeg/include -I/usr/local/2.95.3/jrtplib/include/jrtplib3 -I/usr/local/2.95.3/jthread/include/jthread -I/usr/include/mysql
+LIB=-L/usr/local/2.95.3/jthread/lib -ljthread -L/usr/local/2.95.3/jrtplib/lib -ljrtp -L/usr/local/ffmpeg/lib -lavcodec -lavformat -lavfilter -lswresample -lswscale -lavdevice -lavutil  -lSDL -lmysqlclient -lpthread 
 
 
 CXX=g++
-CC_FLAG=-Wall -std=c++11
+CC_FLAG=-Wall -std=c++11 
 
 TARGET=server
 OBJ= mysdl.o mydecoder.o myrtpreceiver.o myrtpsender.o threadpool.o MySQLManager.o server.o

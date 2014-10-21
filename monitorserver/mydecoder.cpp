@@ -10,7 +10,7 @@ int Mydecoder::init_decoder()
 {
     avcodec_register_all();
     my_avcodec=avcodec_find_decoder(CODEC_ID_H264);
-    my_avcodecontext=avcodec_alloc_context();
+    my_avcodecontext=avcodec_alloc_context3(my_avcodec);
     my_avcodecontext->extradata = new uint8_t[32];//给extradata成员参数分配内存
     my_avcodecontext->extradata_size = 32;//extradata成员参数分配内存大小
    //给extradata成员参数设置值
@@ -54,7 +54,7 @@ int Mydecoder::init_decoder()
     my_avcodecontext->extradata[29] = 0xce;
     my_avcodecontext->extradata[30] = 0x38;
     my_avcodecontext->extradata[31] = 0x80;
-    if(avcodec_open(my_avcodecontext,my_avcodec))
+    if(avcodec_open2(my_avcodecontext,my_avcodec,NULL))
     {
         cout<<"Error:open H264 decoder err"<<endl;
         return -1;
